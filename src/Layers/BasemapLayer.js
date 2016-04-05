@@ -2,11 +2,34 @@
 
   var tileProtocol = (window.location.protocol !== 'https:') ? 'http:' : 'https:';
 
+    var _getTileUrl = function(tileType) {
+	  switch(tileType) {
+	  case "Streets": return '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+	  case "Topographic": return '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+	  case "Oceans": return '//{s}.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}';
+	  case "OceanLabels": return '//{s}.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}';
+	  case "NationalGeographic": return '//{s}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}';
+	  case "DarkGray": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+	  case "DarkGrayLabels": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+	  case "Gray": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+	  case "GrayLabels": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+	  case "Imagery": return '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+	  case "ImageryLabels": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
+	  case "ImageryTransportation": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}';
+	  case "ShadedRelief": return '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}';
+	  case "ShadedReliefLabels": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places_Alternate/MapServer/tile/{z}/{y}/{x}';
+	  case "Terrain": return '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}';
+	  case "TerrainLabels": return '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}';
+	  }
+  }
+  
+  
+  
   EsriLeaflet.Layers.BasemapLayer = L.TileLayer.extend({
     statics: {
       TILES: {
         Streets: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('Streets'),
           attributionUrl: 'https://static.arcgis.com/attribution/World_Street_Map',
           options: {
             hideLogo: false,
@@ -18,7 +41,7 @@
           }
         },
         Topographic: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('Topographic'),
           attributionUrl: 'https://static.arcgis.com/attribution/World_Topo_Map',
           options: {
             hideLogo: false,
@@ -30,7 +53,7 @@
           }
         },
         Oceans: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('Oceans'),
           attributionUrl: 'https://static.arcgis.com/attribution/Ocean_Basemap',
           options: {
             hideLogo: false,
@@ -42,7 +65,7 @@
           }
         },
         OceansLabels: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('OceansLabels'),
           options: {
             hideLogo: true,
             logoPosition: 'bottomright',
@@ -53,7 +76,7 @@
           }
         },
         NationalGeographic: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('NationalGeographic'),
           options: {
             hideLogo: false,
             logoPosition: 'bottomright',
@@ -64,7 +87,7 @@
           }
         },
         DarkGray: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('DarkGray'),
           options: {
             hideLogo: false,
             logoPosition: 'bottomright',
@@ -75,7 +98,7 @@
           }
         },
         DarkGrayLabels: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('DarkGrayLabels'),
           options: {
             hideLogo: true,
             logoPosition: 'bottomright',
@@ -86,7 +109,7 @@
           }
         },
         Gray: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('Gray'),
           options: {
             hideLogo: false,
             logoPosition: 'bottomright',
@@ -97,7 +120,7 @@
           }
         },
         GrayLabels: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('GrayLabels'),
           options: {
             hideLogo: true,
             logoPosition: 'bottomright',
@@ -108,7 +131,7 @@
           }
         },
         Imagery: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('Imagery'),
           options: {
             hideLogo: false,
             logoPosition: 'bottomright',
@@ -119,7 +142,7 @@
           }
         },
         ImageryLabels: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('ImageryLabels'),
           options: {
             hideLogo: true,
             logoPosition: 'bottomright',
@@ -130,7 +153,7 @@
           }
         },
         ImageryTransportation: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('ImageryTransportation'),
           //pane: 'esri-label',
           options: {
             hideLogo: true,
@@ -141,7 +164,7 @@
           }
         },
         ShadedRelief: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('ShadedRelief'),
           options: {
             hideLogo: false,
             logoPosition: 'bottomright',
@@ -152,7 +175,7 @@
           }
         },
         ShadedReliefLabels: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places_Alternate/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('ShadedReliefLabels'),
           options: {
             hideLogo: true,
             logoPosition: 'bottomright',
@@ -163,7 +186,7 @@
           }
         },
         Terrain: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('Terrain'),
           options: {
             hideLogo: false,
             logoPosition: 'bottomright',
@@ -174,7 +197,7 @@
           }
         },
         TerrainLabels: {
-          urlTemplate: tileProtocol + '//{s}.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}',
+          urlTemplate: tileProtocol + _getTileUrl('TerrainLabels'),
           options: {
             hideLogo: true,
             logoPosition: 'bottomright',
